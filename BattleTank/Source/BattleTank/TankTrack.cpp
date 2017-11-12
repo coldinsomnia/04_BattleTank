@@ -9,7 +9,11 @@ void UTankTrack::SetThrottle(float Throttle)
 
 	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
 	auto ForceLocation = GetComponentLocation();
-	GetComponent
 	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+	if (!TankRoot)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to cast root component to TankRoot!"));
+		return;
+	}
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 }
