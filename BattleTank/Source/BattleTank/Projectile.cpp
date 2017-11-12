@@ -2,13 +2,19 @@
 
 #include "Projectile.h"
 
-
 // Sets default values
 AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement Component"));
+	if (!ProjectileMovementComponent)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Projectile Movement Component not found!"));
+		return;
+	}
+	ProjectileMovementComponent->bAutoActivate = false;
 }
 
 // Called when the game starts or when spawned
@@ -25,3 +31,8 @@ void AProjectile::Tick(float DeltaTime)
 
 }
 
+void AProjectile::Launch(float Speed)
+{
+	ProjectileMovementComponent->SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
+	ProjectileMovementComponent->Activate();
+}
