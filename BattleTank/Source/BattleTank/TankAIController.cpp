@@ -25,7 +25,7 @@ void ATankAIController::Tick(float DeltaTime)
 		return; 
 	}
 	
-	// TODO move towards player
+	MoveToActor(PlayerTank, AcceptanceRadius);
 
 	Cast<ATank>(GetPawn())->AimAt(PlayerTank->GetActorLocation());
 	Cast<ATank>(GetPawn())->Fire();
