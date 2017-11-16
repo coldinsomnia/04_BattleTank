@@ -30,23 +30,15 @@ void UTankAimingComponent::BeginPlay()
 	
 }
 
-
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
+void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
+	if (!BarrelToSet || !TurretToSet)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Intitialise failed in UTankAimingComponent!"));
+		return;
+	}
 	Barrel = BarrelToSet;
-	if (!Barrel)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Barrel reference missing on %s"), *GetOwner()->GetName());
-	}
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
-{
 	Turret = TurretToSet;
-	if (!Turret)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Turret reference not found on %s"), *GetOwner()->GetName());
-	}
 }
 
 // Called every frame
@@ -92,6 +84,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
+	if (!Barrel) { return; }
 	// Work-out difference between current barrel rotation and AimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
@@ -103,6 +96,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 void UTankAimingComponent::RotateTurretTowards(FVector AimDirection)
 {
+	if (!Turret) { return; }
 	auto TurretRotator = Turret->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - TurretRotator;

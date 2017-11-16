@@ -15,4 +15,5 @@ void UTankTrack::SetThrottle(float Throttle)
 		return;
 	}
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
+	UE_LOG(LogTemp, Warning, TEXT("IntendMoveFoward: %s"), *ForceApplied.ToString());
 }

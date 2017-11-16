@@ -19,11 +19,12 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	ATank* GetControlledTank() const;
-
 	
-
 private:
+
 	void AimTowardsCrosshair();
 
 	// Return an OUT parameter, true if hit landscape

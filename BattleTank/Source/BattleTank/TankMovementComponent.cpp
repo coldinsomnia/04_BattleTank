@@ -8,6 +8,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 	if (!LeftTrack || !RightTrack) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
+	UE_LOG(LogTemp, Warning, TEXT("IntendMoveFoward: %f"), Throw);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
@@ -25,6 +26,7 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 		return;
 	}
 
+	UE_LOG(LogTemp, Warning, TEXT("Tracks set on AI tank"));
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;
 }
@@ -40,5 +42,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	auto AIRightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
 
 	IntendMoveForward(AIForwardThrow);
+	UE_LOG(LogTemp, Warning, TEXT("Forward throw to IntendMoveForward: %f"), AIForwardThrow);
 	IntendTurnRight(AIRightThrow);
+	UE_LOG(LogTemp, Warning, TEXT("Right throw to IntendTurnRight: %f"), AIRightThrow);
 }
