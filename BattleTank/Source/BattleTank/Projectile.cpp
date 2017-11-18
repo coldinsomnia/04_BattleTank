@@ -9,7 +9,7 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement Component"));
-	if (!ProjectileMovementComponent)
+	if (!ensure(ProjectileMovementComponent))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Projectile Movement Component not found!"));
 		return;

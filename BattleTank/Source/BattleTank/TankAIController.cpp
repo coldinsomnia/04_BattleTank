@@ -13,13 +13,13 @@ void ATankAIController::Tick(float DeltaTime)
 
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 
-	if (!PlayerTank)
+	if (!ensure(PlayerTank))
 	{
 		UE_LOG(LogTemp, Error, TEXT("No player tank found by AI controller"));
 		return;
 	}
 
-	if (!Cast<ATank>(GetPawn()))
+	if (!ensure(Cast<ATank>(GetPawn())))
 	{ 
 		UE_LOG(LogTemp, Error, TEXT("No controlled tank found by AI controller"));
 		return; 
