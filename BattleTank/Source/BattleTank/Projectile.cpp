@@ -9,11 +9,7 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement Component"));
-	if (!ensure(ProjectileMovementComponent))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Projectile Movement Component not found!"));
-		return;
-	}
+	if (!ensure(ProjectileMovementComponent))	{return;}
 	ProjectileMovementComponent->bAutoActivate = false;
 }
 
@@ -21,14 +17,12 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AProjectile::Launch(float Speed)

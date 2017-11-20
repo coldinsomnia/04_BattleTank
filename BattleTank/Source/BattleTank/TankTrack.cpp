@@ -4,16 +4,10 @@
 
 void UTankTrack::SetThrottle(float Throttle)
 {
-	auto Name = GetName();
-
 	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
 	auto ForceLocation = GetComponentLocation();
 	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
-	if (!ensure(TankRoot))
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to cast root component to TankRoot!"));
-		return;
-	}
+
+	if (!ensure(TankRoot)) { return; }
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
-	//UE_LOG(LogTemp, Warning, TEXT("IntendMoveFoward: %s"), *ForceApplied.ToString());
 }

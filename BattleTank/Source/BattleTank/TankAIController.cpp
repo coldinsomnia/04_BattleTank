@@ -13,20 +13,10 @@ void ATankAIController::Tick(float DeltaTime)
 
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 
-	if (!ensure(PlayerTank))
-	{
-		UE_LOG(LogTemp, Error, TEXT("No player tank found by AI controller"));
-		return;
-	}
-
-	if (!ensure(Cast<ATank>(GetPawn())))
-	{ 
-		UE_LOG(LogTemp, Error, TEXT("No controlled tank found by AI controller"));
-		return; 
-	}
+	if (!ensure(PlayerTank)) { return; }
+	if (!ensure(Cast<ATank>(GetPawn()))) { return; }
 	
-	auto result = MoveToActor(PlayerTank, AcceptanceRadius);
-	//UE_LOG(LogTemp, Warning, TEXT("MoveToActor Result:  %f"), result);
+	MoveToActor(PlayerTank, AcceptanceRadius);
 
 	Cast<ATank>(GetPawn())->AimAt(PlayerTank->GetActorLocation());
 	Cast<ATank>(GetPawn())->Fire();

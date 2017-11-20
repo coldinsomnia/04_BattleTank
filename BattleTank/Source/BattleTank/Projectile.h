@@ -7,8 +7,6 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Projectile.generated.h"
 
-
-
 UCLASS()
 class BATTLETANK_API AProjectile : public AActor
 {
@@ -17,7 +15,6 @@ class BATTLETANK_API AProjectile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AProjectile();
-
 	void Launch(float Speed);
 
 protected:
@@ -30,6 +27,4 @@ public:
 
 private:
 	UProjectileMovementComponent* ProjectileMovementComponent;
-	
-	
 };
