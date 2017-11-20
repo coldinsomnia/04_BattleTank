@@ -42,7 +42,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	auto AIRightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
 
 	IntendMoveForward(AIForwardThrow);
-	//UE_LOG(LogTemp, Warning, TEXT("Forward throw to IntendMoveForward: %f"), AIForwardThrow);
+	UE_LOG(LogTemp, Warning, TEXT("Forward throw to IntendMoveForward: %f"), AIForwardThrow);
 	IntendTurnRight(AIRightThrow);
-	//UE_LOG(LogTemp, Warning, TEXT("Right throw to IntendTurnRight: %f"), AIRightThrow);
+	UE_LOG(LogTemp, Warning, TEXT("Right throw to IntendTurnRight: %f"), AIRightThrow);
 }

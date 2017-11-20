@@ -6,7 +6,6 @@
 #include "Engine/World.h"
 #include "Components/SceneComponent.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "Projectile.h"
 #include "TankBarrel.h"
 
@@ -33,9 +32,11 @@ void ATank::BeginPlay()
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel)) { return; }
+
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	if (Barrel && isReloaded) 
+	if (isReloaded) 
 	{
 		//Spawn a projectile at the socket location on barrel
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(

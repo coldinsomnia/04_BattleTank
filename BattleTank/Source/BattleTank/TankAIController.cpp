@@ -25,7 +25,8 @@ void ATankAIController::Tick(float DeltaTime)
 		return; 
 	}
 	
-	MoveToActor(PlayerTank, AcceptanceRadius);
+	auto result = MoveToActor(PlayerTank, AcceptanceRadius);
+	//UE_LOG(LogTemp, Warning, TEXT("MoveToActor Result:  %f"), result);
 
 	Cast<ATank>(GetPawn())->AimAt(PlayerTank->GetActorLocation());
 	Cast<ATank>(GetPawn())->Fire();
