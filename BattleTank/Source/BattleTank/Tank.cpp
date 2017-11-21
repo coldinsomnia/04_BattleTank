@@ -5,7 +5,6 @@
 #include "UObjectGlobals.h"
 #include "Engine/World.h"
 #include "Components/SceneComponent.h"
-#include "TankAimingComponent.h"
 #include "Projectile.h"
 #include "TankBarrel.h"
 
@@ -20,7 +19,6 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATank::Fire()
@@ -39,10 +37,4 @@ void ATank::Fire()
 		Projectile->Launch(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 	}
-}
-
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }

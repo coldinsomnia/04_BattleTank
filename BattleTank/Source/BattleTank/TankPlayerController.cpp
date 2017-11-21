@@ -2,7 +2,6 @@
 
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
-#include "Tank.h"
 #include "Engine/World.h"
 #include "Engine/EngineTypes.h"
 #include "GameFramework/PlayerController.h"
@@ -11,15 +10,9 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (ensure(AimingComponent))
-	{
-		FoundAimingComponent(AimingComponent);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Player controller can't find aiming component at begin play."));
-	}
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; };
+	FoundAimingComponent(AimingComponent);
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -31,15 +24,13 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetControlledTank())) 
-	{ 
-		return; 
-	}
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; };
 
 	FVector HitLocation; // OUT Parameter
 	if(GetSightRayHitLocation(HitLocation)) // Has side effect - is going to line trace
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 		// TODO Tell the controlled tank  to aim at this point
 	}
 	else
@@ -64,12 +55,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 		GetLookVectorHitLocation(OutLookDirection, OutHitLocation);
 	}
 	return true;
-}
-
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	// Return casted ATank type from a pawn
-	return Cast<ATank>(GetPawn());
 }
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const

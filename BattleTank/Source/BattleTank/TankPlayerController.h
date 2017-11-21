@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "TankPlayerController.generated.h"
 
-class ATank;
 class UTankAimingComponent;
 
 /**
@@ -21,8 +20,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
 	
 	// Blueprint event - no definition needed
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
