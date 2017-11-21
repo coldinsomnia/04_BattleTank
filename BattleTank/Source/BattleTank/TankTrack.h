@@ -23,7 +23,12 @@ public:
 	UPROPERTY(EditAnywhere)
 		float TrackMaxDrivingForce = 40000; 
 
+protected:
+
+	virtual void BeginPlay() override;
+
 private:
 
-	
+	UTankTrack();
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 };
