@@ -16,9 +16,6 @@ class BATTLETANK_API ATank : public APawn
 
 public:
 
-	UFUNCTION(BlueprintCallable, Category = "Attack")
-	void Fire();
-
 protected:
 
 	virtual void BeginPlay() override;
@@ -27,17 +24,4 @@ private:
 	// Sets default values for this pawn's properties
 	ATank();
 	
-	UPROPERTY(EditAnywhere, Category = "Firing")
-	float LaunchSpeed = 5000.0;	// TODO find sensible default
-
-	UPROPERTY(EditAnywhere, Category = "Firing")
-	float ReloadTimeInSeconds = 3.0f;
-
-	UTankBarrel* Barrel = nullptr;	// TODO remove
-
-	double LastFireTime;
-
-	UPROPERTY(EditAnywhere, Category = "Setup")
-	TSubclassOf<AProjectile> ProjectileBlueprint;
-
 };
