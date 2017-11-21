@@ -7,14 +7,19 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	if (!ensure(LeftTrack || RightTrack)) { return; }
 	LeftTrack->SetThrottle(Throw);
+	UE_LOG(LogTemp, Warning, TEXT("ITM:  Setting left Throttle: %f"), Throw);
 	RightTrack->SetThrottle(Throw);
+	UE_LOG(LogTemp, Warning, TEXT("ITM:  Setting right Throttle: %f"), Throw);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	if (!ensure(LeftTrack || RightTrack)) { return; }
 	LeftTrack->SetThrottle(Throw);
+	UE_LOG(LogTemp, Warning, TEXT("ITR:  Setting left Throttle: %f"), Throw);
 	RightTrack->SetThrottle(-Throw);
+	UE_LOG(LogTemp, Warning, TEXT("ITR:  Setting right Throttle: %f"), -Throw);
+
 }
 
 void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)

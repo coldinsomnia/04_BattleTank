@@ -30,7 +30,9 @@ protected:
 private:
 
 	UTankTrack();
-	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+	void DriveTrack();
+	void ApplySidewaysForce();
 
 	// Blueprint callable function, no definition needed
 	UFUNCTION(BlueprintCallable, Category = "Collision")
@@ -39,4 +41,6 @@ private:
 		UPrimitiveComponent* OtherComponent,
 		FVector NormalImpulse,
 		const FHitResult& Hit);
+
+	float CurrentThrottle = 0;
 };
