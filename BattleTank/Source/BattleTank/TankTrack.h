@@ -23,6 +23,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		float TrackMaxDrivingForce = 40000; 
 
+	UPROPERTY(EditAnywhere)
+		FVector ForceLocationOffset;
+
 protected:
 
 	virtual void BeginPlay() override;

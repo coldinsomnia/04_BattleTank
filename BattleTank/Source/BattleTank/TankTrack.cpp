@@ -23,14 +23,13 @@ void UTankTrack::OnHit(UPrimitiveComponent* HitComponent,
 {
 	DriveTrack();
 	ApplySidewaysForce();
-	//CurrentThrottle = 0;
+	CurrentThrottle = 0;
 }
 
-// TODO fix the bug that keep setting this to zero every other frame?
 void UTankTrack::SetThrottle(float Throttle)
 {
 	CurrentThrottle = FMath::Clamp<float>(CurrentThrottle + Throttle, -1, 1);
-	UE_LOG(LogTemp, Warning, TEXT("Current Throttle: %f"), Throttle);
+	//UE_LOG(LogTemp, Warning, TEXT("Current Throttle: %f"), Throttle);
 }
 
 void UTankTrack::DriveTrack()
@@ -39,8 +38,10 @@ void UTankTrack::DriveTrack()
 	auto ForceLocation = GetComponentLocation();
 	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
 	if (!ensure(TankRoot)) { return; }
-	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
-	//UE_LOG(LogTemp, Warning, TEXT("Force Applied: %s"), *ForceApplied.ToString());
+	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation + ForceLocationOffset);
+	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation - ForceLocationOffset);
+	//
+	UE_LOG(LogTemp, Warning, TEXT("Force Applied: %s"), *ForceApplied.ToString());
 }
 
 // Keep the tracks travelling forwards/backwards
@@ -56,6 +57,5 @@ void UTankTrack::ApplySidewaysForce()
 	auto TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
 	auto CorrectionForce = (TankRoot->GetMass() * CorrectionAcceleration) / 2; // Two tracks
 
-	// TODO renable once turning fixed?
-	//TankRoot->AddForce(CorrectionForce);
+	TankRoot->AddForce(CorrectionForce);
 }
