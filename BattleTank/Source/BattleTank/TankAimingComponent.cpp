@@ -41,7 +41,11 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	if (CurrentAmmo == 0)
+	{
+		FiringStatus = EFiringStatus::Empty;
+	}
+	else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 	{
 		FiringStatus = EFiringStatus::Reloading;
 	}
@@ -131,7 +135,10 @@ bool UTankAimingComponent::IsBarrelMoving()
 
 void UTankAimingComponent::Fire()
 {
-	
+	if (FiringStatus == EFiringStatus::Empty)
+	{
+		return;
+	}
 	if (FiringStatus != EFiringStatus::Reloading)
 	{
 		if (!ensure(Barrel)) { return; }
@@ -143,6 +150,7 @@ void UTankAimingComponent::Fire()
 			Barrel->GetSocketRotation(FName("Projectile")));
 
 		Projectile->Launch(LaunchSpeed);
+		CurrentAmmo--;
 		LastFireTime = FPlatformTime::Seconds();
 		FiringStatus = EFiringStatus::Reloading;
 	}

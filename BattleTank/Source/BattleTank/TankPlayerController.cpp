@@ -30,7 +30,6 @@ void ATankPlayerController::AimTowardsCrosshair()
 
 	FVector HitLocation; // OUT Parameter
 	auto bGotHitLocation = GetSightRayHitLocation(HitLocation);
-	UE_LOG(LogTemp, Warning, TEXT("bGotHitLocation:  %i"), bGotHitLocation);
 	if(bGotHitLocation) // Has side effect - is going to line trace
 	{
 		AimingComponent->AimAt(HitLocation);
@@ -38,7 +37,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Skybox!"));
+		//UE_LOG(LogTemp, Warning, TEXT("Skybox!"));
 	}
 }
 

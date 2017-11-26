@@ -41,7 +41,6 @@ void UTankTrack::DriveTrack()
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation + ForceLocationOffset);
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation - ForceLocationOffset);
 	//
-	UE_LOG(LogTemp, Warning, TEXT("Force Applied: %s"), *ForceApplied.ToString());
 }
 
 // Keep the tracks travelling forwards/backwards
